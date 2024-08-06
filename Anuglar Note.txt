@@ -1,0 +1,140 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "DefaultDB": "Data Source=MA-CLI-DEV-DB\\DEV2019,1433;Database=smartTOUCH_QA_copy;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true"
+
+  },
+  "Serilog": {
+
+    "Using": [ "Serilog.Sinks.File" ],
+
+    "MinimumLevel": {
+
+      "Default": "Information"
+
+    },
+
+    "WriteTo": [
+
+      {
+
+        "Name": "MSSqlServer",
+
+        "Args": {
+
+          "connectionString": "Data Source=MA-CLI-DEV-DB\\DEV2019,1433;Database=smartTOUCH_QA_copy;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true",
+
+          "schemaName": "dbo",
+
+          "tableName": "AppLogs",
+
+          "autoCreateSqlTable": true,
+
+          "columnOptionsSection": {
+
+            "customColumns": [
+
+              {
+
+                "ColumnName": "CorrelationId",
+
+                "DataType": "varchar",
+
+                "DataLength": 50
+
+              },
+
+              {
+
+                "ColumnName": "Product",
+
+                "DataType": "varchar",
+
+                "DataLength": 50
+
+              },
+
+              {
+
+                "ColumnName": "Application",
+
+                "DataType": "varchar",
+
+                "DataLength": 50
+
+              }
+
+            ]
+
+          }
+
+        }
+
+      },
+
+      {
+
+        "Name": "File",
+
+        "Args": {
+
+          "path": "./logs/api_log-.log",
+
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level:u3} {CorrelationId} {Message:lj}{Exception}{NewLine}",
+
+          "rollingInterval": "Day",
+
+          "retainedFileCountLimit": 7
+
+        }
+
+      }
+
+    ]
+
+  }
+
+}
+
+
+///////Input format
+GETBRANDS
+{
+  "operatioN_TYPE": "SEL_ITEM_BRAND",
+  "vsL_CATEGORY_ID": "210681",
+  "p_DATA": [{}]
+}
+
+
+Angular Command:
+node -v
+ng version
+ng new mapps_pal     							//create angular project
+cd mapps_pal									//Go to Directory
+ng serve										//run and build angular
+ng g c brands  									//create components
+ng g c components/brands						//create components with specific folder
+ng generate service brands						//create service
+ng generate service services/brandsservice
+npm install bootstrap bootstrap-icons       	//Bootstraps with Bootstraps icons
+
+
+Databinding syntax
+
+1. string interpolation
+syntax: {{data}}
+
+2. property binding
+syntax: [property]="data"
+
+3. event binding
+syntax: (event)="experssion"
+
+4. TwoWay binding
+syntax :[(ngModel)]="data"
+
